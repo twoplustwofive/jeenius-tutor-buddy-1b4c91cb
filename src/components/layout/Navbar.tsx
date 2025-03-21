@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import Button from "../ui/Button";
+import { Button } from "../ui/button";
 import { Menu, X } from "lucide-react";
 
 const Navbar: React.FC = () => {
@@ -53,12 +53,16 @@ const Navbar: React.FC = () => {
         </nav>
 
         <div className="hidden md:flex items-center space-x-4">
-          <Button variant="outline" size="sm">
-            Log In
-          </Button>
-          <Button variant="primary" size="sm">
-            Sign Up
-          </Button>
+          <Link to="/login">
+            <Button variant="outline" size="sm">
+              Log In
+            </Button>
+          </Link>
+          <Link to="/signup">
+            <Button variant="default" size="sm" className="bg-primary-indigo hover:bg-primary-indigo/90">
+              Sign Up
+            </Button>
+          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -107,12 +111,16 @@ const Navbar: React.FC = () => {
               Contact
             </Link>
             <div className="flex flex-col space-y-2 pt-4 border-t border-gray-100">
-              <Button variant="outline" size="sm" className="w-full">
-                Log In
-              </Button>
-              <Button variant="primary" size="sm" className="w-full">
-                Sign Up
-              </Button>
+              <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button variant="outline" size="sm" className="w-full">
+                  Log In
+                </Button>
+              </Link>
+              <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button variant="default" size="sm" className="w-full bg-primary-indigo hover:bg-primary-indigo/90">
+                  Sign Up
+                </Button>
+              </Link>
             </div>
           </nav>
         </div>
