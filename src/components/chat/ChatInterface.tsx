@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { PaperPlaneIcon, Mic, Plus, X, Minimize2, Maximize2 } from "lucide-react";
+import { Send, Mic, Plus, X, Minimize2, Maximize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 
@@ -254,7 +254,7 @@ const ChatInterface: React.FC = () => {
                       className="h-8 w-8 bg-primary-indigo hover:bg-primary-indigo/90"
                       size="icon"
                     >
-                      <PaperPlaneIcon className="h-4 w-4" />
+                      <Send className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>

@@ -5,7 +5,7 @@ import Footer from "@/components/layout/Footer";
 import Hero from "@/components/hero/Hero";
 import FeatureSection from "@/components/features/FeatureSection";
 import GlassCard from "@/components/ui/GlassCard";
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
 
 const Index: React.FC = () => {

@@ -1,6 +1,9 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import GlassCard from "@/components/ui/GlassCard";
 
 const Hero = () => {
   return (
