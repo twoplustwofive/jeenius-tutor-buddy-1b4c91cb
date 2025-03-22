@@ -204,161 +204,163 @@ print(f"The kinetic energy is {energy} Joules")`;
         </div>
         
         <div className="flex-1 overflow-hidden">
-          <TabsContent value="chat" className="h-full flex flex-col data-[state=active]:flex data-[state=inactive]:hidden">
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={cn(
-                    "flex max-w-[80%]",
-                    message.sender === "user" ? "ml-auto justify-end" : "mr-auto"
-                  )}
-                >
-                  {message.sender === "ai" && (
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsContent value="chat" className="h-full flex flex-col data-[state=active]:flex data-[state=inactive]:hidden">
+              <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={cn(
+                      "flex max-w-[80%]",
+                      message.sender === "user" ? "ml-auto justify-end" : "mr-auto"
+                    )}
+                  >
+                    {message.sender === "ai" && (
+                      <div className="h-8 w-8 rounded-full bg-primary-indigo/10 flex items-center justify-center mr-2 flex-shrink-0 mt-1">
+                        <Brain className="h-4 w-4 text-primary-indigo" />
+                      </div>
+                    )}
+                    <div className={cn(
+                      "p-3 rounded-xl",
+                      message.sender === "user"
+                        ? "bg-primary-indigo text-white rounded-tr-none"
+                        : "bg-gray-100 border border-gray-200 text-gray-800 rounded-tl-none"
+                    )}>
+                      <p className="text-sm">{message.content}</p>
+                      {renderVisualization(message.visualizationType, message.visualizationData)}
+                      <span className="text-xs opacity-70 mt-1 block text-right">
+                        {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    </div>
+                    {message.sender === "user" && (
+                      <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center ml-2 flex-shrink-0 mt-1">
+                        <span className="text-sm font-medium text-gray-700">R</span>
+                      </div>
+                    )}
+                  </div>
+                ))}
+                {isLoading && (
+                  <div className="flex max-w-[80%] mr-auto">
                     <div className="h-8 w-8 rounded-full bg-primary-indigo/10 flex items-center justify-center mr-2 flex-shrink-0 mt-1">
                       <Brain className="h-4 w-4 text-primary-indigo" />
                     </div>
-                  )}
-                  <div className={cn(
-                    "p-3 rounded-xl",
-                    message.sender === "user"
-                      ? "bg-primary-indigo text-white rounded-tr-none"
-                      : "bg-gray-100 border border-gray-200 text-gray-800 rounded-tl-none"
-                  )}>
-                    <p className="text-sm">{message.content}</p>
-                    {renderVisualization(message.visualizationType, message.visualizationData)}
-                    <span className="text-xs opacity-70 mt-1 block text-right">
-                      {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </span>
-                  </div>
-                  {message.sender === "user" && (
-                    <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center ml-2 flex-shrink-0 mt-1">
-                      <span className="text-sm font-medium text-gray-700">R</span>
-                    </div>
-                  )}
-                </div>
-              ))}
-              {isLoading && (
-                <div className="flex max-w-[80%] mr-auto">
-                  <div className="h-8 w-8 rounded-full bg-primary-indigo/10 flex items-center justify-center mr-2 flex-shrink-0 mt-1">
-                    <Brain className="h-4 w-4 text-primary-indigo" />
-                  </div>
-                  <div className="p-3 rounded-xl bg-gray-100 border border-gray-200 text-gray-800 rounded-tl-none">
-                    <div className="flex space-x-2">
-                      <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce"></div>
-                      <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce delay-100"></div>
-                      <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce delay-200"></div>
+                    <div className="p-3 rounded-xl bg-gray-100 border border-gray-200 text-gray-800 rounded-tl-none">
+                      <div className="flex space-x-2">
+                        <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce"></div>
+                        <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce delay-100"></div>
+                        <div className="h-2 w-2 bg-gray-300 rounded-full animate-bounce delay-200"></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
-            
-            <div className="flex-none p-4 border-t border-gray-200">
-              <div className="flex space-x-2">
-                <Button 
-                  variant="outline" 
-                  size="icon" 
-                  className="rounded-full h-10 w-10"
-                  onClick={() => toast({
-                    title: "Upload Files",
-                    description: "File upload functionality coming soon!",
-                  })}
-                >
-                  <Plus className="h-5 w-5" />
-                </Button>
-                <div className="relative flex-1">
-                  <Textarea
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    placeholder="Ask me anything about your JEE preparation..."
-                    className="resize-none pr-12 py-2.5 min-h-[2.5rem] h-10"
-                  />
-                  <Button
-                    className="absolute right-1 top-1 h-8 w-8 p-0"
-                    onClick={handleSendMessage}
-                    disabled={isLoading || inputValue.trim() === ""}
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+              
+              <div className="flex-none p-4 border-t border-gray-200">
+                <div className="flex space-x-2">
+                  <Button 
+                    variant="outline" 
+                    size="icon" 
+                    className="rounded-full h-10 w-10"
+                    onClick={() => toast({
+                      title: "Upload Files",
+                      description: "File upload functionality coming soon!",
+                    })}
                   >
-                    <Send className="h-4 w-4" />
+                    <Plus className="h-5 w-5" />
                   </Button>
-                </div>
-                <Button 
-                  variant="outline" 
-                  size="icon" 
-                  className="rounded-full h-10 w-10"
-                  onClick={handleVoiceInput}
-                >
-                  <Mic className="h-5 w-5" />
-                </Button>
-              </div>
-              <div className="mt-2 flex justify-center">
-                <div className="inline-flex items-center gap-2 text-xs text-gray-500">
-                  <Sparkles className="h-3 w-3" />
-                  <span>Einstein can create visual explanations, solve problems, and help with concepts</span>
-                </div>
-              </div>
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="canvas" className="h-full data-[state=active]:block data-[state=inactive]:hidden">
-            <div className="h-full flex flex-col">
-              <div className="flex-1 p-4 bg-gray-50 overflow-auto">
-                <div ref={canvasRef} className="h-full rounded-lg border-2 border-dashed border-gray-200 flex items-center justify-center">
-                  <div className="text-center p-6">
-                    <BrainCircuit className="h-12 w-12 text-primary-indigo/50 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium mb-2">Visual Canvas</h3>
-                    <p className="text-gray-500 max-w-md mx-auto mb-4">
-                      Ask Einstein to create interactive visualizations, diagrams, or explain concepts visually here.
-                    </p>
-                    <Button onClick={() => setActiveTab("chat")}>
-                      Ask a question
+                  <div className="relative flex-1">
+                    <Textarea
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                      placeholder="Ask me anything about your JEE preparation..."
+                      className="resize-none pr-12 py-2.5 min-h-[2.5rem] h-10"
+                    />
+                    <Button
+                      className="absolute right-1 top-1 h-8 w-8 p-0"
+                      onClick={handleSendMessage}
+                      disabled={isLoading || inputValue.trim() === ""}
+                    >
+                      <Send className="h-4 w-4" />
                     </Button>
                   </div>
+                  <Button 
+                    variant="outline" 
+                    size="icon" 
+                    className="rounded-full h-10 w-10"
+                    onClick={handleVoiceInput}
+                  >
+                    <Mic className="h-5 w-5" />
+                  </Button>
+                </div>
+                <div className="mt-2 flex justify-center">
+                  <div className="inline-flex items-center gap-2 text-xs text-gray-500">
+                    <Sparkles className="h-3 w-3" />
+                    <span>Einstein can create visual explanations, solve problems, and help with concepts</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="tools" className="h-full data-[state=active]:block data-[state=inactive]:hidden">
-            <div className="h-full p-6">
-              <h3 className="text-lg font-medium mb-4">Tools & Extensions</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {[
-                  { icon: FileText, name: "Test Generator", description: "Create custom practice tests based on your weak areas" },
-                  { icon: Brain, name: "Concept Visualizer", description: "Turn complex concepts into easy-to-understand visuals" },
-                  { icon: Code, name: "Formula Helper", description: "Get help with mathematical formulas and equations" },
-                  { icon: Wand2, name: "Problem Solver", description: "Step-by-step solutions to complex JEE problems" },
-                  { icon: ImageIcon, name: "Diagram Creator", description: "Generate clear, accurate scientific diagrams" },
-                  { icon: Sparkles, name: "Revision Assistant", description: "Create quick revision notes from your conversations" }
-                ].map((tool, index) => (
-                  <div 
-                    key={index} 
-                    className="border rounded-lg p-4 hover:border-primary-indigo/50 hover:bg-gray-50 cursor-pointer transition-colors"
-                    onClick={() => {
-                      setActiveTab("chat");
-                      setInputValue(`@${tool.name.toLowerCase().replace(" ", "_")} `);
-                      toast({
-                        title: `${tool.name} activated`,
-                        description: "This tool is now ready to use in your chat",
-                      });
-                    }}
-                  >
-                    <div className="flex items-start">
-                      <div className="h-10 w-10 rounded-lg bg-primary-indigo/10 flex items-center justify-center mr-3">
-                        <tool.icon className="h-5 w-5 text-primary-indigo" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium">{tool.name}</h4>
-                        <p className="text-sm text-gray-500">{tool.description}</p>
-                      </div>
+            </TabsContent>
+            
+            <TabsContent value="canvas" className="h-full data-[state=active]:block data-[state=inactive]:hidden">
+              <div className="h-full flex flex-col">
+                <div className="flex-1 p-4 bg-gray-50 overflow-auto">
+                  <div ref={canvasRef} className="h-full rounded-lg border-2 border-dashed border-gray-200 flex items-center justify-center">
+                    <div className="text-center p-6">
+                      <BrainCircuit className="h-12 w-12 text-primary-indigo/50 mx-auto mb-4" />
+                      <h3 className="text-lg font-medium mb-2">Visual Canvas</h3>
+                      <p className="text-gray-500 max-w-md mx-auto mb-4">
+                        Ask Einstein to create interactive visualizations, diagrams, or explain concepts visually here.
+                      </p>
+                      <Button onClick={() => setActiveTab("chat")}>
+                        Ask a question
+                      </Button>
                     </div>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
-          </TabsContent>
+            </TabsContent>
+            
+            <TabsContent value="tools" className="h-full data-[state=active]:block data-[state=inactive]:hidden">
+              <div className="h-full p-6">
+                <h3 className="text-lg font-medium mb-4">Tools & Extensions</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { icon: FileText, name: "Test Generator", description: "Create custom practice tests based on your weak areas" },
+                    { icon: Brain, name: "Concept Visualizer", description: "Turn complex concepts into easy-to-understand visuals" },
+                    { icon: Code, name: "Formula Helper", description: "Get help with mathematical formulas and equations" },
+                    { icon: Wand2, name: "Problem Solver", description: "Step-by-step solutions to complex JEE problems" },
+                    { icon: ImageIcon, name: "Diagram Creator", description: "Generate clear, accurate scientific diagrams" },
+                    { icon: Sparkles, name: "Revision Assistant", description: "Create quick revision notes from your conversations" }
+                  ].map((tool, index) => (
+                    <div 
+                      key={index} 
+                      className="border rounded-lg p-4 hover:border-primary-indigo/50 hover:bg-gray-50 cursor-pointer transition-colors"
+                      onClick={() => {
+                        setActiveTab("chat");
+                        setInputValue(`@${tool.name.toLowerCase().replace(" ", "_")} `);
+                        toast({
+                          title: `${tool.name} activated`,
+                          description: "This tool is now ready to use in your chat",
+                        });
+                      }}
+                    >
+                      <div className="flex items-start">
+                        <div className="h-10 w-10 rounded-lg bg-primary-indigo/10 flex items-center justify-center mr-3">
+                          <tool.icon className="h-5 w-5 text-primary-indigo" />
+                        </div>
+                        <div>
+                          <h4 className="font-medium">{tool.name}</h4>
+                          <p className="text-sm text-gray-500">{tool.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </DashboardLayout>
