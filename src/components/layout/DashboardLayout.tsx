@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
   BarChart2, 
@@ -18,30 +18,21 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
-interface SidebarLinkProps {
-  to: string;
-  icon: React.ElementType;
-  label: string;
-  isActive: boolean;
-  onClick?: () => void;
-}
-
-const SidebarLink: React.FC<SidebarLinkProps> = ({ to, icon: Icon, label, isActive, onClick }) => (
-  <Link
-    to={to}
-    className={cn(
-      "flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors",
-      isActive
-        ? "bg-primary-indigo/10 text-primary-indigo font-medium"
-        : "text-gray-600 hover:bg-gray-100"
-    )}
-    onClick={onClick}
-  >
-    <Icon className="h-5 w-5" />
-    <span>{label}</span>
-  </Link>
-);
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+  SidebarInset
+} from "@/components/ui/sidebar";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -49,7 +40,6 @@ interface DashboardLayoutProps {
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   const location = useLocation();
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   const sidebarLinks = [
     { to: "/dashboard", icon: Home, label: "Dashboard" },
@@ -63,101 +53,81 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar - Desktop */}
-      <aside className="hidden md:flex flex-col w-64 bg-white border-r border-gray-200">
-        <div className="p-4 border-b border-gray-200">
-          <Link to="/" className="flex items-center space-x-2">
-            <span className="font-bold text-2xl text-primary-indigo">JEEnius</span>
-          </Link>
-        </div>
-        <div className="flex-1 py-6 flex flex-col space-y-1 px-3">
-          {sidebarLinks.map((link) => (
-            <SidebarLink
-              key={link.to}
-              to={link.to}
-              icon={link.icon}
-              label={link.label}
-              isActive={location.pathname === link.to}
-            />
-          ))}
-        </div>
-      </aside>
-
-      {/* Mobile Sidebar Toggle */}
-      <div className="md:hidden fixed bottom-4 left-4 z-50">
-        <Button
-          onClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
-          className="rounded-full h-12 w-12 flex items-center justify-center bg-primary-indigo shadow-lg"
-        >
-          <Menu className="h-6 w-6 text-white" />
-        </Button>
-      </div>
-
-      {/* Sidebar - Mobile */}
-      {isMobileSidebarOpen && (
-        <div className="md:hidden fixed inset-0 z-40 flex">
-          <div
-            className="fixed inset-0 bg-black/50"
-            onClick={() => setIsMobileSidebarOpen(false)}
-          ></div>
-          <aside className="relative flex flex-col w-64 max-w-xs bg-white">
-            <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-              <Link to="/" className="flex items-center space-x-2">
-                <span className="font-bold text-2xl text-primary-indigo">JEEnius</span>
-              </Link>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsMobileSidebarOpen(false)}
-              >
-                <X className="h-5 w-5" />
-              </Button>
-            </div>
-            <div className="flex-1 py-6 flex flex-col space-y-1 px-3">
-              {sidebarLinks.map((link) => (
-                <SidebarLink
-                  key={link.to}
-                  to={link.to}
-                  icon={link.icon}
-                  label={link.label}
-                  isActive={location.pathname === link.to}
-                  onClick={() => setIsMobileSidebarOpen(false)}
-                />
-              ))}
-            </div>
-          </aside>
-        </div>
-      )}
-
-      {/* Main Content */}
-      <main className="flex-1 overflow-auto">
-        {/* Header */}
-        <header className="bg-white border-b border-gray-200 py-4 px-6">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div className="flex items-center w-full max-w-lg">
-              <Search className="h-5 w-5 text-gray-400 absolute ml-3 pointer-events-none" />
-              <Input 
-                placeholder="Search topics, tests, materials..." 
-                className="pl-10 pr-4 py-2 w-full bg-gray-50 border-gray-200"
-              />
-            </div>
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="icon" className="text-gray-500">
-                <Bell className="h-5 w-5" />
-              </Button>
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full bg-gray-50">
+        <Sidebar>
+          <SidebarHeader className="border-b border-gray-200 p-4">
+            <Link to="/" className="flex items-center space-x-2">
+              <span className="font-bold text-2xl text-primary-indigo">JEEnius</span>
+            </Link>
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarGroupLabel>Main Navigation</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {sidebarLinks.map((link) => (
+                    <SidebarMenuItem key={link.to}>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={location.pathname === link.to}
+                        tooltip={link.label}
+                      >
+                        <Link to={link.to} className="flex items-center">
+                          <link.icon />
+                          <span>{link.label}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+          <SidebarFooter className="border-t border-gray-200 p-4">
+            <div className="flex items-center space-x-3">
               <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
                 <span className="text-sm font-medium text-gray-700">R</span>
               </div>
+              <div className="text-sm">
+                <p className="font-medium">Rahul Singh</p>
+                <p className="text-gray-500">JEE 2024</p>
+              </div>
             </div>
-          </div>
-        </header>
+          </SidebarFooter>
+        </Sidebar>
         
-        <div className="max-w-7xl mx-auto py-6 px-6">
-          {children}
-        </div>
-      </main>
-    </div>
+        <SidebarInset>
+          {/* Header */}
+          <header className="bg-white border-b border-gray-200 py-4 px-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <SidebarTrigger />
+                <div className="flex items-center w-full max-w-lg">
+                  <Search className="h-5 w-5 text-gray-400 absolute ml-3 pointer-events-none" />
+                  <Input 
+                    placeholder="Search topics, tests, materials..." 
+                    className="pl-10 pr-4 py-2 w-full bg-gray-50 border-gray-200"
+                  />
+                </div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <Button variant="ghost" size="icon" className="text-gray-500">
+                  <Bell className="h-5 w-5" />
+                </Button>
+                <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
+                  <span className="text-sm font-medium text-gray-700">R</span>
+                </div>
+              </div>
+            </div>
+          </header>
+          
+          <div className="py-6 px-6 h-[calc(100vh-64px)] overflow-auto">
+            {children}
+          </div>
+        </SidebarInset>
+      </div>
+    </SidebarProvider>
   );
 };
 
