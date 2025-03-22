@@ -1,8 +1,7 @@
-
 import React from "react";
 import Navbar from "@/components/layout/Navbar";
 import GlassCard from "@/components/ui/GlassCard";
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { 
   BarChart3, 
   BookOpen, 
@@ -17,6 +16,7 @@ import {
   BarChart,
   LucideIcon
 } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
 
 interface StatCardProps {
   title: string;
@@ -202,9 +202,7 @@ const Dashboard: React.FC = () => {
                       <span className="text-sm font-medium">Physics</span>
                       <span className="text-sm text-muted-foreground">78%</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-primary-indigo h-2 rounded-full" style={{ width: '78%' }}></div>
-                    </div>
+                    <Progress value={78} className="h-2" />
                   </div>
                   
                   <div>
@@ -212,9 +210,7 @@ const Dashboard: React.FC = () => {
                       <span className="text-sm font-medium">Chemistry</span>
                       <span className="text-sm text-muted-foreground">65%</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-primary-teal h-2 rounded-full" style={{ width: '65%' }}></div>
-                    </div>
+                    <Progress value={65} className="h-2" />
                   </div>
                   
                   <div>
@@ -222,9 +218,7 @@ const Dashboard: React.FC = () => {
                       <span className="text-sm font-medium">Mathematics</span>
                       <span className="text-sm text-muted-foreground">82%</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-secondary-amber h-2 rounded-full" style={{ width: '82%' }}></div>
-                    </div>
+                    <Progress value={82} className="h-2" />
                   </div>
                   
                   <div className="pt-4 border-t border-gray-100">
