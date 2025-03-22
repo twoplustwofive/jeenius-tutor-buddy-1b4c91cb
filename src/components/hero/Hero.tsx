@@ -1,10 +1,8 @@
-
 import React from "react";
-import Button from "../ui/Button";
-import GlassCard from "../ui/GlassCard";
-import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-const Hero: React.FC = () => {
+const Hero = () => {
   return (
     <section className="min-h-screen pt-32 px-6 md:px-12 relative overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50">
       {/* Background Elements */}
