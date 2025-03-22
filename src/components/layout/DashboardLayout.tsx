@@ -12,7 +12,8 @@ import {
   Bell,
   Search,
   Menu,
-  X
+  X,
+  MessageSquare
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -55,6 +56,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     { to: "/dashboard/study-materials", icon: BookOpen, label: "Study Materials" },
     { to: "/dashboard/ai-tests", icon: BrainCircuit, label: "AI Tests" },
     { to: "/dashboard/doubt-resolution", icon: HelpCircle, label: "Doubt Resolution" },
+    { to: "/dashboard/ai-chat", icon: MessageSquare, label: "Einstein AI" },
     { to: "/dashboard/analytics", icon: BarChart2, label: "Analytics" },
     { to: "/dashboard/schedule", icon: Calendar, label: "Schedule" },
     { to: "/dashboard/settings", icon: SettingsIcon, label: "Settings" },

@@ -13,10 +13,10 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import FreeTrialSignup from "./pages/FreeTrialSignup";
-import ChatInterface from "./components/chat/ChatInterface";
 import StudyMaterials from "./pages/dashboard/StudyMaterials";
 import AITests from "./pages/dashboard/AITests";
 import DoubtResolution from "./pages/dashboard/DoubtResolution";
+import AIChat from "./pages/dashboard/AIChat";
 import Analytics from "./pages/dashboard/Analytics";
 import Schedule from "./pages/dashboard/Schedule";
 import Settings from "./pages/dashboard/Settings";
@@ -35,6 +35,7 @@ const App = () => (
           <Route path="/dashboard/study-materials" element={<StudyMaterials />} />
           <Route path="/dashboard/ai-tests" element={<AITests />} />
           <Route path="/dashboard/doubt-resolution" element={<DoubtResolution />} />
+          <Route path="/dashboard/ai-chat" element={<AIChat />} />
           <Route path="/dashboard/analytics" element={<Analytics />} />
           <Route path="/dashboard/schedule" element={<Schedule />} />
           <Route path="/dashboard/settings" element={<Settings />} />
@@ -46,7 +47,6 @@ const App = () => (
           <Route path="/free-trial" element={<FreeTrialSignup />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <ChatInterface />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

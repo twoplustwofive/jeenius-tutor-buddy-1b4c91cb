@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Brain, BrainCircuit, Sparkles, MessageSquare, Bot } from "lucide-react";
 import GlassCard from "@/components/ui/GlassCard";
 
 const Hero = () => {
@@ -17,7 +17,7 @@ const Hero = () => {
         <div className="col-span-1 z-10">
           <div className="animate-fade-in">
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary-indigo/10 text-primary-indigo text-sm font-medium mb-6">
-              <span className="mr-2">🚀</span>
+              <Sparkles className="h-4 w-4 mr-2" />
               Revolutionizing JEE Preparation
             </div>
             <h1 className="heading-xl mb-6 text-balance">
@@ -53,32 +53,55 @@ const Hero = () => {
             <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-indigo to-primary-teal rounded-3xl blur-lg opacity-30 animate-pulse-slow"></div>
             <GlassCard className="h-auto w-full p-6 relative animate-scale-in">
               <div className="flex items-center mb-4">
-                <div className="h-10 w-10 rounded-full bg-primary-indigo/20 flex items-center justify-center">
-                  <span className="text-primary-indigo font-semibold">AI</span>
+                <div className="h-12 w-12 rounded-full bg-primary-indigo/20 flex items-center justify-center">
+                  <BrainCircuit className="h-6 w-6 text-primary-indigo" />
                 </div>
                 <div className="ml-4">
-                  <h4 className="font-medium">Einstein</h4>
-                  <p className="text-xs text-muted-foreground">Jeenius AI Tutor</p>
+                  <h4 className="font-medium text-lg flex items-center">
+                    Einstein 
+                    <span className="text-xs ml-2 px-2 py-0.5 bg-primary-indigo/10 text-primary-indigo rounded-full">AI Tutor</span>
+                  </h4>
+                  <p className="text-xs text-muted-foreground">Powered by advanced AI models</p>
                 </div>
               </div>
 
               <div className="space-y-4">
-                <div className="bg-gray-100 rounded-lg p-3 rounded-tl-none">
-                  Hello! I'm your personal JEE tutor. What would you like to learn today?
+                <div className="bg-gray-100 rounded-lg p-3 rounded-tl-none flex items-start">
+                  <div className="mr-2 mt-0.5 flex-shrink-0">
+                    <Bot className="h-4 w-4 text-primary-indigo" />
+                  </div>
+                  <div>
+                    <p>Hello! I'm your personal JEE tutor. What would you like to learn today?</p>
+                    <div className="flex space-x-1 mt-2">
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-gray-200 text-gray-700">Physics</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-gray-200 text-gray-700">Chemistry</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-gray-200 text-gray-700">Mathematics</span>
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="bg-primary-indigo/10 rounded-lg p-3 rounded-tr-none ml-auto">
                   I'm struggling with Newton's Laws of Motion. Can you explain?
                 </div>
                 
-                <div className="bg-gray-100 rounded-lg p-3 rounded-tl-none">
-                  Of course! Newton's Laws of Motion can be broken down into three key principles:
-                  <ol className="mt-2 ml-4 list-decimal">
-                    <li className="mb-1">An object at rest stays at rest, and an object in motion stays in motion unless acted upon by an external force.</li>
-                    <li className="mb-1">The acceleration of an object is directly proportional to the force applied and inversely proportional to its mass (F=ma).</li>
-                    <li>For every action, there is an equal and opposite reaction.</li>
-                  </ol>
-                  Would you like me to provide some example problems?
+                <div className="bg-gray-100 rounded-lg p-3 rounded-tl-none flex items-start">
+                  <div className="mr-2 mt-0.5 flex-shrink-0">
+                    <Brain className="h-4 w-4 text-primary-indigo" />
+                  </div>
+                  <div>
+                    <p>Of course! Newton's Laws of Motion can be broken down into three key principles:</p>
+                    <ol className="mt-2 ml-4 list-decimal">
+                      <li className="mb-1">An object at rest stays at rest, and an object in motion stays in motion unless acted upon by an external force.</li>
+                      <li className="mb-1">The acceleration of an object is directly proportional to the force applied and inversely proportional to its mass (F=ma).</li>
+                      <li>For every action, there is an equal and opposite reaction.</li>
+                    </ol>
+                    <p className="mt-2">Would you like me to provide some example problems?</p>
+                    
+                    <div className="mt-3 bg-gray-50 border border-gray-200 rounded-lg p-2 flex items-center justify-center">
+                      <Sparkles className="h-4 w-4 text-primary-indigo mr-2" />
+                      <span className="text-xs">Interactive visualization available</span>
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="flex border-t border-gray-100 pt-4">
